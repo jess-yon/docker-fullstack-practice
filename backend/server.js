@@ -6,16 +6,17 @@ const port = 4000;
 
 app.use(express.json());
 
-db.pool.query(
-  `CREATE TABLE lists (
-  id INTEGER AUTO_INCREMENT,
-  value TEXT,
-  PRIMARY KEY (id)
-)`,
-  (err, results, fields) => {
-    console.log("results: ", results);
-  }
-);
+// 임의로 생성
+// db.pool.query(
+//   `CREATE TABLE lists (
+//   id INTEGER AUTO_INCREMENT,
+//   value TEXT,
+//   PRIMARY KEY (id)
+// )`,
+//   (err, results, fields) => {
+//     console.log("results: ", results);
+//   }
+// );
 
 // db에서 모든 정보 가져오기 => client에 전달
 app.get("/api/values", (req, res) => {
