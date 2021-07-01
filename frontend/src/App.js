@@ -36,10 +36,13 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <div className="container">
+          {lists &&
+            lists.map((list, index) => <li key={index}>{lists.value}</li>)}
           <input
             type="text"
             placeholder="Please input text"
             onChange={changeHandler}
+            value={value}
           />
           <button type="submit" onSubmit={submitHandler}>
             Submit
