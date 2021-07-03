@@ -21,3 +21,13 @@ after_success:
   - docker push jessy2yon/docker-frontend # 빌드된 각각의 이미지들 도커 허브에 push
   - docker push jessy2yon/docker-backend
   - docker push jessy2yon/docker-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker-fullstack-practice"
+  env: "Dockerfullstackpractice-env"
+  bucket_name: elasticbeanstalk-ap-northeast-2-344745973717
+  bucket_path: "docker-fullstack-practice"
+  on:
+    branch: dev
