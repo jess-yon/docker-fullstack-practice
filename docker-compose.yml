@@ -1,0 +1,46 @@
+version: "3"
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    stdin_open: true
+
+  nginx:
+    restart: always
+    ### restart ###
+    # "no" - 어떤 상황에서도 재시작 X
+    # "always" - 항상 재시작
+    # "on-failure" - on-failure 에러코드와 함께 컨테이너가 멈췄을 때만 재시작
+    # "unless-stopped" - 개발자가 임의로 멈추려고 할 때를 제외하고는 항상 재시작
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3000:80"
+
+  backend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./backend
+    container_name: app_backend
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+
+  ### 이 부분을 지워줌으로써 mysql 폴더는 compose시 무시된다. => RDS와 연동할 예정
+  # mysql:
+  #   build: ./mysql
+  #   restart: unless-stopped
+  #   container_name: app_mysql
+  #   ports:
+  #     - "3306:3306"
+  #   volumes: # 데이터를 영속적으로 관리하려면 => 데이터를 컨테이너 바깥에서 관리해야 함 => volumes 사용
+  #     - ./mysql/mysql_data:/var/lib/mysql
+  #     - ./mysql/sqls/:/docker-entrypoint-initdb.d/
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD:
+  #     MYSQL_DATABASE:
