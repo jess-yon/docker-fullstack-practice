@@ -31,6 +31,5 @@ deploy:
   bucket_path: "docker-fullstack-practice"
   on:
     branch: dev
-
   access_key_id: $AWS_ACCESS_KEY
-	secret_access_key: $AWS_SECRET_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
